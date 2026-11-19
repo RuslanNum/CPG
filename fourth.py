@@ -1,32 +1,32 @@
 def je_tah_mozny(figurka, cilova_pozice, obsazene_pozice):
-    """
-    Ověří, zda se král nebo jezdec může přesunout na danou pozici.
+    radek, sloupec = cilova_pozice
     
-    :param figurka: Slovník s klíči 'typ' a 'pozice' (např. {"typ": "král", "pozice": (4, 4)})
-    :param cilova_pozice: N-tice (řádek, sloupec)
-    :param obsazene_pozice: Množina obsazených pozic
-    :return: True, pokud je tah možný, jinak False
-    """
+    if 1>radek or 1>sloupec or 8<radek or 8<sloupec:
+        return False
+        
+    if cilova_pozice in obsazene_pozice:
+        return False
+        
     aktualni_pozice = figurka["pozice"]
+    aktualni_radek, aktualni_sloupec = aktualni_pozice
     typ = figurka["typ"]
+    cil_radek = abs(radek - aktualni_radek)
+    cil_sloupec = abs(sloupec - aktualni_sloupec)
     
-    # 1. KROK: Je cílová pozice na šachovnici? (řádky i sloupce 1 až 8)
-    # Zde student napíše jednoduchou podmínku s and / or
+    if cilova_pozice == aktualni_pozice: 
+        return False
     
-    
-    # 2. KROK: Je cílová pozice volná?
-    # Nápověda: operátor 'in' nebo 'not in' pro množiny
-    
-    
-    # 3. KROK: Pohyb podle typu figury
     if typ == "král":
-        # Král se může pohnout maximálně o 1 pole v jakémkoliv směru.
-        # Nápověda: rozdíl řádků a sloupců (absolutní hodnota abs()) musí být <= 1.
-        pass
+        if cil_radek <= 1 and cil_sloupec <= 1:
+            return True
+        return False
         
     elif typ == "jezdec":
-        # Jezdec se pohybuje ve tvaru L (např. rozdíl řádků je 2 a sloupců 1, nebo naopak).
-        pass
+        if cil_radek == 1 and cil_sloupec == 2:
+            return True
+        if cil_radek == 2 and cil_sloupec == 1:
+            return True
+        return False
         
     return False
 
